@@ -1,0 +1,39 @@
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  height: 3em;
+}
+
+.router-size {
+  height: 100%;
+}
+
+/*This solves scroll issues in side-nav*/
+.router-spacer {
+  display: block;
+  position:absolute;
+  height:auto;
+  bottom:0;
+  top:0;
+  left:0;
+  right:0;
+  padding-top: 4em;
+}
+/*This solves scroll issues in side-nav*/
+
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+.canvas-size {
+  height: 100%;
+}
+.tool-icon {
+  padding: 0 14px;
+}
+
+.header-bar-link {
+  color: white;
+}

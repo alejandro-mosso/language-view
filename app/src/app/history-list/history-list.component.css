@@ -1,0 +1,16 @@
+.title-container {
+  position: fixed;
+  margin-bottom: 0em;
+  margin-left: 0em;
+  background-color: white;
+  z-index: 2;
+}
+.title {
+  margin-bottom: 0em;
+  margin-left: 1em;
+  color: hotpink;
+}
+
+.list {
+  margin-top: 3em;
+}

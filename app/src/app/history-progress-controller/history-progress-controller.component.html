@@ -1,0 +1,156 @@
+
+
+<mat-drawer-container class="drawer-container" [hasBackdrop]="true">
+  <mat-drawer #drawer mode="over" opened class="side-nav">
+    <app-history-list [idHistory]="idHistory"
+                      [title]="title"
+                      (onChange)="selectMedia($event)"></app-history-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <button mat-mini-fab color="accent" class="toggle-button" (click)="drawer.toggle()"><mat-icon>menu</mat-icon></button>
+    <mat-horizontal-stepper linear #stepper class="stepper">
+      <mat-step > <!-- [stepControl]="listenHistoryForm" -->
+        <form [formGroup]="listenHistoryForm">
+          <ng-template matStepLabel>Listen</ng-template>
+
+          <app-history-listening *ngIf="selectedMedia != undefined"
+                                 [src]="selectedMedia.src"
+                                 [script]="selectedMedia.script"
+                                 [title]="selectedMedia.title">
+          </app-history-listening>
+
+          <!--section class="check-margin" *ngIf="selectedMedia != None">
+            <mat-checkbox placeholder="Click to continue..."
+                          formControlName="listenHistoryChecked" required>
+              <a *ngIf="listenHistoryForm.get('listenHistoryChecked').hasError('required')">Check me!</a>
+              <a *ngIf="!listenHistoryForm.get('listenHistoryChecked').hasError('required')">Done!</a>
+              <mat-error *ngIf="listenHistoryForm.get('listenHistoryChecked').hasError('required')">
+                Confirm you already learned this lesson.
+              </mat-error>
+            </mat-checkbox>
+          </section-->
+
+          <div>
+            <button mat-raised-button color="primary" matStepperNext class="flow-control-button">
+              Next
+              <mat-icon>navigate_next</mat-icon>
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step > <!-- [stepControl]="recordYourselfForm" -->
+        <form [formGroup]="youglishForm">
+          <ng-template matStepLabel>Learn</ng-template>
+
+          <app-youglish #youglish *ngIf="selectedMedia != undefined"
+                        [script]="selectedMedia.script"
+                        [language]="language" [lan]="lan" [dest]="dest" [destination]="destination">
+          </app-youglish>
+
+          <!--section class="check-margin">
+            <mat-checkbox placeholder="Click to continue..."
+                          formControlName="youglishChecked" required>
+              <a *ngIf="recordYourselfForm.get('youglishChecked').hasError('required')">Check me!</a>
+              <a *ngIf="!recordYourselfForm.get('youglishChecked').hasError('required')">Done!</a>
+              <mat-error *ngIf="recordYourselfForm.get('youglishChecked').hasError('required')">
+                Confirm you already learned this lesson.
+              </mat-error>
+            </mat-checkbox>
+          </section-->
+          <br/><br/>
+          <div>
+            <button mat-raised-button color="primary" matStepperPrevious class="flow-control-button">
+              <mat-icon>navigate_before</mat-icon>
+              Back
+            </button>
+            <button mat-raised-button color="primary" matStepperNext class="flow-control-button">
+              Next
+              <mat-icon>navigate_next</mat-icon>
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step > <!-- [stepControl]="recordYourselfForm" -->
+        <form [formGroup]="recordYourselfForm">
+          <ng-template matStepLabel>Repeat</ng-template>
+
+          <app-record-yourself *ngIf="selectedMedia != undefined"
+                               [src]="selectedMedia.src"
+                               [script]="selectedMedia.script">
+          </app-record-yourself>
+          <!--section class="check-margin">
+            <mat-checkbox placeholder="Click to continue..."
+                          formControlName="recordYourselfChecked" required>
+              <a *ngIf="recordYourselfForm.get('recordYourselfChecked').hasError('required')">Check me!</a>
+              <a *ngIf="!recordYourselfForm.get('recordYourselfChecked').hasError('required')">Done!</a>
+              <mat-error *ngIf="recordYourselfForm.get('recordYourselfChecked').hasError('required')">
+                Confirm you already learned this lesson.
+              </mat-error>
+            </mat-checkbox>
+          </section-->
+
+          <div>
+            <button mat-raised-button color="primary" matStepperPrevious class="flow-control-button">
+              <mat-icon>navigate_before</mat-icon>
+              Back
+            </button>
+            <!--button mat-raised-button color="primary" matStepperNext class="flow-control-button">
+              Next
+              <mat-icon>navigate_next</mat-icon>
+            </button-->
+          </div>
+        </form>
+      </mat-step>
+
+      <!--
+      <mat-step [stepControl]="vocabularyAssessmentForm" >
+        <form [formGroup]="vocabularyAssessmentForm">
+          <ng-template matStepLabel>Assessment</ng-template>
+
+          <section class="check-margin">
+            <mat-checkbox placeholder="Click to continue..."
+                          formControlName="vocabularyAssessmentChecked" required>
+              <a *ngIf="vocabularyAssessmentForm.get('vocabularyAssessmentChecked').hasError('required')">Check me!</a>
+              <a *ngIf="!vocabularyAssessmentForm.get('vocabularyAssessmentChecked').hasError('required')">Done!</a>
+              <mat-error *ngIf="vocabularyAssessmentForm.get('vocabularyAssessmentChecked').hasError('required')">
+                Confirm you already learned this lesson.
+              </mat-error>
+            </mat-checkbox>
+          </section>
+
+          <div>
+            <button mat-raised-button color="primary" matStepperPrevious class="flow-control-button">
+              <mat-icon>navigate_before</mat-icon>
+              Back
+            </button>
+            <button mat-raised-button color="primary" matStepperNext class="flow-control-button">
+              Next
+              <mat-icon>navigate_next</mat-icon>
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>All done!</ng-template>
+        <p>You are now done.</p>
+        <div>
+          <button mat-raised-button color="primary" matStepperPrevious class="flow-control-button">
+            <mat-icon>navigate_before</mat-icon>
+            Back
+          </button>
+          <button mat-raised-button color="warn" class="flow-control-button" (click)="stepper.reset()">
+            Reset
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-step>
+      -->
+    </mat-horizontal-stepper>
+
+  </mat-drawer-content>
+</mat-drawer-container>
+
+

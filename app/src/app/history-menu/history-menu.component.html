@@ -1,0 +1,11 @@
+
+<div class="flex-container">
+
+  <mat-card *ngFor="let item of menuItems" class="item-card">
+    <mat-card-title><a [routerLink]="['/story-progress-control', item.id, item.title]" routerLinkActive="active">{{item.title}}</a></mat-card-title>
+    <mat-card-content>
+      {{item.description}}
+    </mat-card-content>
+  </mat-card>
+
+</div>

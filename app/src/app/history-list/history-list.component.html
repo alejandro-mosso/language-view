@@ -1,0 +1,8 @@
+<div class="title-container side-nav">
+  <h4 class="title">{{listTitle}}</h4>
+</div>
+<mat-selection-list #histories class="list">
+  <mat-list-option *ngFor="let history of playlist" (click)="onClickPlaylistItem(history)">
+    {{history.title}}
+  </mat-list-option>
+</mat-selection-list>

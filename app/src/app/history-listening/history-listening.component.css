@@ -1,0 +1,26 @@
+.script-container {
+  max-width: 35em;
+  padding-right: 1em;
+  padding-left: 1em;
+  position: static;
+  /*color: #606060;*/
+  font-weight: normal;
+
+}
+
+.inline-container {
+}
+
+.player-container {
+  max-width: 30em;
+  max-height: 22em;
+}
+
+.flex-container {
+  width: 100%;
+  vertical-align: text-top;
+  align-items: center;
+  align-content: center;
+  display: flex;
+  flex-wrap: wrap;
+}

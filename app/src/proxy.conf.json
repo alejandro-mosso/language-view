@@ -1,0 +1,14 @@
+[
+  {
+    "context": ["/translate", "/youglish", "/define", "/audio"],
+    "target": "http://localhost:9000",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  {
+    "context": ["/languagelab/*", "/languagelab/history-menu/*", "/languagelab/i-media/*"],
+    "target": "http://localhost:9211",
+    "secure": false,
+    "logLevel": "debug"
+  }
+]

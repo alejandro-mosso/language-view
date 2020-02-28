@@ -1,0 +1,62 @@
+
+<div class="recorder-container">
+  <p>Read the text out loud trying to imitate the original audio</p>
+  <h3>
+    <p *ngFor="let row of script.split('\n')">
+      {{row}}
+    </p>
+  </h3>
+  <button mat-fab [color]="isRecording?'warn':'accent'"
+          class="recorder-button"
+          (click)="isRecording?btnStopRecording():startRecording()">
+    <mat-icon *ngIf="!isRecording">mic</mat-icon>
+    <mat-icon *ngIf="isRecording">stop</mat-icon>
+  </button>
+  <!--button (click)="stopRecording()">Stop</button>
+  <button (click)="btnStopRecording()">Stop & watch</button-->
+  <br/>
+
+  <div class="flex-container" align="center">
+
+    <vg-player class="player-container">
+      <vg-overlay-play></vg-overlay-play>
+      <vg-buffering></vg-buffering>
+
+      <vg-controls>
+        <vg-play-pause></vg-play-pause>
+        <vg-scrub-bar>
+          <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+          <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+        </vg-scrub-bar>
+        <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+        <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+        <vg-mute></vg-mute>
+        <vg-volume></vg-volume><vg-fullscreen></vg-fullscreen>
+      </vg-controls>
+      <video [vgMedia]="media" #media id="singleVideo" preload="auto" crossorigin
+             [src]="src" >
+      </video>
+    </vg-player>
+
+    <vg-player class="player-container">
+      <vg-overlay-play></vg-overlay-play>
+      <vg-buffering></vg-buffering>
+
+      <vg-controls>
+        <vg-play-pause></vg-play-pause>
+        <vg-scrub-bar>
+          <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+          <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+        </vg-scrub-bar>
+        <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+        <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+        <vg-mute></vg-mute>
+        <vg-volume></vg-volume><vg-fullscreen></vg-fullscreen>
+      </vg-controls>
+      <video [vgMedia]="targetVideo" #targetVideo [src]="url" type="video/webm" preload="auto" crossorigin></video>
+    </vg-player>
+
+  </div>
+  <br/>
+  <video #video class="video"></video>
+</div>

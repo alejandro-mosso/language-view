@@ -1,0 +1,36 @@
+.video {
+  visibility: hidden;
+  max-width: 0.5em;
+  max-height: 0.5em;
+}
+
+.player-container {
+  max-width: 30em;
+  max-height: 22em;
+}
+
+.recorded-video {
+  max-width: 30em;
+  max-height: 22em;
+}
+
+.recorder-container {
+  font-weight: normal;
+  align-content: center;
+  text-align: center;
+}
+
+.recorder-button {
+  margin-bottom: 1em;
+}
+
+.flex-container {
+  max-width: 60em;
+  background-color: black;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  text-align: center;
+  width: 100%;
+  margin: auto;
+}

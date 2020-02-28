@@ -1,0 +1,17 @@
+<div class="canvas-size">
+  <mat-toolbar color="primary" class="fixed-header">
+    <mat-toolbar-row>
+      <span>Three steps</span>
+      <span class="toolbar-spacer"></span>
+      <a [routerLink]="['/']" routerLinkActive="active" class="header-bar-link">
+        <mat-icon class="tool-icon" aria-hidden="false" aria-label="Example heart icon">home</mat-icon>
+      </a>
+
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+
+  <div class="router-spacer router-size">
+    <router-outlet></router-outlet>
+  </div>
+</div>

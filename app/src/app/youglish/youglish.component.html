@@ -1,0 +1,198 @@
+
+
+<mat-card class="example-card">
+  <mat-card-header>
+    <!--div mat-card-avatar class="header-image"><mat-icon>ondemand_video</mat-icon></div-->
+    <!--mat-card-title>Practice & Learn</mat-card-title-->
+    <mat-card-subtitle>
+      <mat-chip-list aria-label="Word selection">
+        <mat-chip *ngFor="let word of scriptArr" color="accent" (click)="search(word, language)"
+                  [selectable]="true" [selected]="word == sourceText">
+          {{word}}
+        </mat-chip>
+      </mat-chip-list>
+      <mat-form-field *ngIf="scriptArr == undefined || scriptArr.length == 0" appearance="standard">
+        <mat-label>Search</mat-label>
+        <input [(ngModel)]="text" (keyup.enter)="search(text, 'english')" matInput placeholder="Search">
+        <mat-icon matSuffix>search</mat-icon>
+        <mat-hint>Enter a word or phrase</mat-hint>
+      </mat-form-field>
+
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+  <br/>
+    <a class="word-translation"><b>{{sourceText}}</b>: {{textTranslated}}</a>
+    <mat-divider></mat-divider>
+    <div [ngClass]="{'flex-container': true}" *ngIf="text != undefined">
+      <div>
+        <mat-tab-group [backgroundColor]="'primary'" [color]="'accent'" class="tab-definitions">
+          <mat-tab label="Audio" *ngIf="audioModel != undefined && audioModel.audios != undefined && audioModel.audios.length > 0">
+            <div>
+              <p>Listen the word in its simple form (you might listen different accents).</p>
+              <div class="audio-player">
+                <mat-basic-audio-player *ngFor="let mp3Url of audioModel.audios" [audioUrl]="mp3Url" [title]="''"
+                                        [autoPlay]="false" muted="muted" class="audio-player"
+                                        [displayTitle]="''" [displayVolumeControls]="false"></mat-basic-audio-player>
+              </div>
+            </div>
+          </mat-tab>
+          <mat-tab [label]="destination" *ngIf="isDefinitionFound()">
+            <mat-accordion *ngIf="defTranslated != undefined">
+              <mat-expansion-panel *ngIf="defTranslated.adjective != undefined && defTranslated.adjective[0] != undefined">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Adjective</mat-panel-title>
+                  <mat-panel-description>
+                    {{defTranslated.adjective[0].substring(0, 60) + '...'}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <ul>
+                  <li *ngFor="let def of defTranslated.adjective">{{def}}</li>
+                </ul>
+              </mat-expansion-panel>
+              <mat-expansion-panel *ngIf="defTranslated.adverb != undefined && defTranslated.adverb[0] != undefined">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Adverb</mat-panel-title>
+                  <mat-panel-description>
+                    {{defTranslated.adverb[0].substring(0, 60) + '...'}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <ul>
+                  <li *ngFor="let def of defTranslated.adverb">{{def}}</li>
+                </ul>
+              </mat-expansion-panel>
+              <mat-expansion-panel *ngIf="defTranslated.noun != undefined && defTranslated.noun[0] != undefined">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Noun</mat-panel-title>
+                  <mat-panel-description>
+                    {{defTranslated.noun[0].substring(0, 60) + '...'}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <ul>
+                  <li *ngFor="let def of defTranslated.noun">{{def}}</li>
+                </ul>
+              </mat-expansion-panel>
+              <mat-expansion-panel *ngIf="defTranslated.verb != undefined && defTranslated.verb[0] != undefined">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Verb</mat-panel-title>
+                  <mat-panel-description>
+                    {{defTranslated.verb[0].substring(0, 60) + '...'}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <ul>
+                  <li *ngFor="let def of defTranslated.verb">{{def}}</li>
+                </ul>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </mat-tab>
+
+          <mat-tab [label]="language" *ngIf="isDefinitionFound()">
+            <mat-accordion>
+              <mat-expansion-panel *ngIf="definition.adjective != undefined">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Adjective</mat-panel-title>
+                  <mat-panel-description>
+                    {{definition.adjective[0].substring(0, 60) + '...'}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <ul>
+                  <li *ngFor="let def of definition.adjective">{{def}}</li>
+                </ul>
+              </mat-expansion-panel>
+              <mat-expansion-panel *ngIf="definition.adverb != undefined">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Adverb</mat-panel-title>
+                  <mat-panel-description>
+                    {{definition.adverb[0].substring(0, 60) + '...'}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <ul>
+                  <li *ngFor="let def of definition.adverb">{{def}}</li>
+                </ul>
+              </mat-expansion-panel>
+              <mat-expansion-panel *ngIf="definition.noun != undefined">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Noun</mat-panel-title>
+                  <mat-panel-description>
+                    {{definition.noun[0].substring(0, 60) + '...'}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <ul>
+                  <li *ngFor="let def of definition.noun">{{def}}</li>
+                </ul>
+              </mat-expansion-panel>
+              <mat-expansion-panel *ngIf="definition.verb != undefined">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Verb</mat-panel-title>
+                  <mat-panel-description>
+                    {{definition.verb[0].substring(0, 60) + '...'}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <ul>
+                  <li *ngFor="let def of definition.verb">{{def}}</li>
+                </ul>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </mat-tab>
+
+        </mat-tab-group>
+      </div>
+
+      <div [ngClass]="{'hide-player': !youglishHasResults()}">
+        <div id="player" class="player-container">
+        </div>
+        <div class="flex-container" *ngIf="player != undefined && youglishHasResults()">
+          <!--button mat-icon-button color="accent" *ngIf="!isPlaying" (click)="playVideo()">
+            <mat-icon>play_circle_filled</mat-icon>
+          </button-->
+
+          <!--button mat-icon-button color="accent" *ngIf="isPlaying" (click)="pauseVideo()">
+            <mat-icon>pause_circle_filled</mat-icon>
+          </button-->
+
+          <button mat-icon-button color="accent"
+                  [disabled]="!(index > 0)" (click)="goTo(0)">
+            <mat-icon>skip_previous</mat-icon>
+          </button>
+
+          <button mat-icon-button color="accent"
+                  [disabled]="!(index > 0)" (click)="skipPrevious()">
+            <mat-icon>navigate_before</mat-icon>
+          </button>
+
+          <button mat-icon-button color="accent"
+                  [disabled]="!(index < youglish.results.length-1)" (click)="skipNext()">
+            <mat-icon>navigate_next</mat-icon>
+          </button>
+
+          <button mat-icon-button color="accent"
+                  [disabled]="!(index < youglish.results.length-1)" (click)="goTo(youglish.results.length-1)">
+            <mat-icon>skip_next</mat-icon>
+          </button>
+
+          <button mat-icon-button color="accent" (click)="reload()">
+            <mat-icon>replay</mat-icon>
+          </button>
+
+          <!--button mat-icon-button color="accent" (click)="stopVideo()">
+            <mat-icon>stop</mat-icon>
+          </button-->
+
+          <button mat-icon-button color="accent" (click)="playVideo()">
+            <mat-icon>play_circle_filled</mat-icon>
+          </button>
+
+          <button mat-icon-button color="accent" (click)="pauseVideo()">
+            <mat-icon>pause_circle_filled</mat-icon>
+          </button>
+        </div>
+        <h3>{{displayText}}</h3>
+      </div>
+    </div>
+
+  </mat-card-content>
+  <mat-card-actions>
+
+  </mat-card-actions>
+</mat-card>
+
